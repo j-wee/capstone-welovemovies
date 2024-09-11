@@ -9,7 +9,20 @@ async function destroy(reviewId) {
 
 async function list(movie_id) {
   // TODO: Write your code here
-  return db("reviews").where({ movie_id: movie_id });
+  // return db("reviews").where({ movie_id: movie_id });
+  const reviews = await db("reviews")
+      .select("reviews.*", "critics.*")
+      .join("critics", "reviews.critic_id", "critics.critic_id")
+      .where({ "reviews.movie_id": movie_id });
+
+  return reviews.map(review => ({
+    ...review,
+    critic: {
+      preferred_name: review.preferred_name,
+      surname: review.surname,
+      organization_name: review.organization_name,
+    }
+  }));
 }
 
 async function read(reviewId) {

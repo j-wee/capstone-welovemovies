@@ -6,12 +6,12 @@ const reviewsRouter = require("../reviews/reviews.router");
 const theatersRouter = require("../theaters/theaters.router");
 
 // TODO: Add your routes here
-router.route("/:movieId")
-    .get(controller.read)
-    .all(methodNotAllowed);
-
 router.route("/")
     .get(controller.list)
+    .all(methodNotAllowed);
+
+router.route("/:movieId")
+    .get(controller.read)
     .all(methodNotAllowed);
 
 module.exports = router;

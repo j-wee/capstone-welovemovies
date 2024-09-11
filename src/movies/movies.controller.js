@@ -11,7 +11,7 @@ async function movieExists(request, response, next) {
     return next();
   }
 
-  return next({ status: 404, message: "Movie not found." });
+  next({ status: 404, message: "Movie not found." });
 }
 
 async function read(request, response) {
@@ -23,8 +23,7 @@ async function read(request, response) {
 async function list(request, response) {
   // TODO: Add your code here.
   const { is_showing } = request.query;
-  const movies = await service.list(is_showing);
-  response.json({ data: movies });
+  response.json({ data: await service.list(is_showing) });
 }
 
 module.exports = {
